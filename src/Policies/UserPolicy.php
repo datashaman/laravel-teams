@@ -82,30 +82,6 @@ class UserPolicy extends AbstractPolicy
     }
 
     /**
-     * Determine whether the user can restore the user.
-     *
-     * @param TeamsUserInterface $actingUser
-     * @param TeamsUserInterface $user
-     * @return mixed
-     */
-    public function restore(TeamsUserInterface $actingUser, TeamsUserInterface $user)
-    {
-        return $this->userIsTeamAdminInSameTeam($actingUser, $user);
-    }
-
-    /**
-     * Determine whether the user can permanently delete the user.
-     *
-     * @param TeamsUserInterface $actingUser
-     * @param TeamsUserInterface $user
-     * @return mixed
-     */
-    public function forceDelete(TeamsUserInterface $actingUser, TeamsUserInterface $user)
-    {
-        return false;
-    }
-
-    /**
      * Determine whether the user can add a role to the user.
      *
      * @param TeamsUserInterface $actingUser

@@ -8,20 +8,6 @@ use Datashaman\Teams\TeamsUserInterface;
 class TeamPolicy extends AbstractPolicy
 {
     /**
-     * @param TeamsUserInterface $actingUser
-     * @param Team $team
-     *
-     * @return bool
-     */
-    protected function userIsInTeam(TeamsUserInterface $user, Team $team): bool
-    {
-        return $user
-            ->teams()
-            ->where('teams.id', $team->id)
-            ->exists();
-    }
-
-    /**
      * Determine whether the user can view the team index.
      *
      * @param TeamsUserInterface $user
