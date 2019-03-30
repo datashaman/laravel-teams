@@ -2,14 +2,17 @@
 
 namespace Datashaman\Teams;
 
-trait HasTeams
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+trait TeamsUser
 {
-    public function teams()
+    public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Models\Team::class);
     }
 
-    public function userRoles()
+    public function userRoles(): HasMany
     {
         return $this->hasMany(Models\UserRole::class);
     }
@@ -43,7 +46,11 @@ trait HasTeams
     {
         if (in_array($role, config('teams.roles'))) {
             if ($role === 'TEAM_ADMIN' && !$team) {
-                throw new TeamsException('You must specify the team');
+                throw new TeamsException('Team must be specified');
+            }
+
+            if ($role === 'TEAM_ADMIN' && !$this->inTeam($team)) {
+                throw new TeamsException('User must be in team');
             }
 
             $teamId = is_null($team) ? null : $team->id;
@@ -73,26 +80,30 @@ trait HasTeams
      *
      * @return Models\Team
      */
-    public function addTeam(Models\Team $team): Models\Team
+    public function joinTeam(Models\Team $team): Models\Team
     {
-        $exists = $this
-            ->teams()
-            ->where('team_user.team_id', $team->id)
-            ->exists();
-
-        if (!$exists) {
-            $this->teams()->attach($team);
-        }
+        $this->teams()->attach($team);
 
         return $team->refresh();
     }
 
     /**
-     * @param Models\Team $user
+     * @return bool
+     */
+    public function inTeam(Models\Team $team): bool
+    {
+        return $this
+            ->teams()
+            ->where('team_user.team_id', $team->id)
+            ->exists();
+    }
+
+    /**
+     * @param Models\Team $team
      *
      * @return Models\Team
      */
-    public function removeTeam(Models\Team $team): Models\Team
+    public function leaveTeam(Models\Team $team): Models\Team
     {
         $exists = $this
             ->teams()

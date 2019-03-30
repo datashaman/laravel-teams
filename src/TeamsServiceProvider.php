@@ -2,10 +2,19 @@
 
 namespace Datashaman\Teams;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
 
-class TeamsServiceProvider extends ServiceProvider
+class TeamsServiceProvider extends AuthServiceProvider
 {
+    /**
+     * @var array
+     */
+    protected $policies = [
+        Project::class => ProjectPolicy::class,
+        Team::class => TeamPolicy::class,
+        UserInterface::class => UserPolicy::class,
+    ];
+
     public function boot()
     {
         $this->publishes(

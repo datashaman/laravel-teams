@@ -2,6 +2,7 @@
 
 namespace Datashaman\Teams\Models;
 
+use Datashaman\Teams\TeamsUserInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
@@ -40,11 +41,11 @@ class Team extends Model
     }
 
     /**
-     * @param Model $user
+     * @param TeamsUserInterface $user
      *
-     * @return Model
+     * @return TeamsUserInterface
      */
-    public function addUser(Model $user): Model
+    public function addUser(TeamsUserInterface $user): TeamsUserInterface
     {
         $exists = $this
             ->users()
@@ -59,11 +60,11 @@ class Team extends Model
     }
 
     /**
-     * @param Model $user
+     * @param TeamsUserInterface $user
      *
-     * @return Model
+     * @return TeamsUserInterface
      */
-    public function removeUser(Model $user): Model
+    public function removeUser(TeamsUserInterface $user): TeamsUserInterface
     {
         $exists = $this
             ->users()

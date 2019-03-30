@@ -44,9 +44,11 @@ class UserTest extends TestCase
     public function testAddTeamAdminRoleWithoutTeam()
     {
         $this->expectException(TeamsException::class);
-        $this->expectExceptionMessage('You must specify the team');
+        $this->expectExceptionMessage('Team must be specified');
 
+        $team = factory(Models\Team::class)->create();
         $user = factory(Fixtures\User::class)->create();
+        $team->addUser($user);
         $user->addRole('TEAM_ADMIN');
     }
 
@@ -54,10 +56,22 @@ class UserTest extends TestCase
     {
         $team = factory(Models\Team::class)->create();
         $user = factory(Fixtures\User::class)->create();
+        $team->addUser($user);
         $user->addRole('TEAM_ADMIN', $team);
+
         $this->assertEquals(1, $user->userRoles->count());
         $userRole = $user->userRoles->first();
         $this->assertEquals('TEAM_ADMIN', $userRole->role);
         $this->assertEquals($team->id, $userRole->team_id);
+    }
+
+    public function testAddTeamAdminRoleWithNonMember()
+    {
+        $this->expectException(TeamsException::class);
+        $this->expectExceptionMessage('User must be in team');
+
+        $team = factory(Models\Team::class)->create();
+        $user = factory(Fixtures\User::class)->create();
+        $user->addRole('TEAM_ADMIN', $team);
     }
 }

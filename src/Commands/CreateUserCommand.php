@@ -19,7 +19,8 @@ class CreateUserCommand extends Command
     public function handle()
     {
         $attrs = $this->argument();
-        $user = User::create($attrs);
+        $class = config('teams.user');
+        $user = $class::create($attrs);
 
         $roles = collect(explode(',', $this->option('roles')))
             ->each(
