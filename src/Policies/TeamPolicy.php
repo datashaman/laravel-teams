@@ -3,6 +3,7 @@
 namespace Datashaman\Teams\Policies;
 
 use Datashaman\Teams\Models\Team;
+use Datashaman\Teams\TeamsUserInterface;
 
 class TeamPolicy extends AbstractPolicy
 {
@@ -75,30 +76,6 @@ class TeamPolicy extends AbstractPolicy
      * @return mixed
      */
     public function delete(TeamsUserInterface $user, Team $team)
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the team.
-     *
-     * @param TeamsUserInterface $user
-     * @param Team $team
-     * @return mixed
-     */
-    public function restore(TeamsUserInterface $user, Team $team)
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the team.
-     *
-     * @param TeamsUserInterface $user
-     * @param Team $team
-     * @return mixed
-     */
-    public function forceDelete(TeamsUserInterface $user, Team $team)
     {
         return false;
     }

@@ -10,9 +10,9 @@ class TeamsServiceProvider extends AuthServiceProvider
      * @var array
      */
     protected $policies = [
-        Project::class => ProjectPolicy::class,
-        Team::class => TeamPolicy::class,
-        UserInterface::class => UserPolicy::class,
+        Models\Project::class => Policies\ProjectPolicy::class,
+        Models\Team::class => Policies\TeamPolicy::class,
+        UserInterface::class => Policies\UserPolicy::class,
     ];
 
     public function boot()
@@ -33,6 +33,8 @@ class TeamsServiceProvider extends AuthServiceProvider
                 ]
             );
         }
+
+        $this->registerPolicies();
     }
 
     public function register()

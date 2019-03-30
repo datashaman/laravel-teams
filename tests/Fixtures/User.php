@@ -4,9 +4,9 @@ namespace Datashaman\Teams\Tests\Fixtures;
 
 use Datashaman\Teams\TeamsUserInterface;
 use Datashaman\Teams\TeamsUser;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model implements TeamsUserInterface
+class User extends Authenticatable implements TeamsUserInterface
 {
     use TeamsUser;
 }
