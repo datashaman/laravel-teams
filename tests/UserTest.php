@@ -4,6 +4,7 @@ namespace Datashaman\Teams\Tests;
 
 use Datashaman\Teams\Models;
 use Datashaman\Teams\TeamsException;
+use Hash;
 
 class UserTest extends TestCase
 {
@@ -60,6 +61,7 @@ class UserTest extends TestCase
         $user->addRole('TEAM_ADMIN', $team);
 
         $this->assertEquals(1, $user->userRoles->count());
+
         $userRole = $user->userRoles->first();
         $this->assertEquals('TEAM_ADMIN', $userRole->role);
         $this->assertEquals($team->id, $userRole->team_id);
@@ -73,5 +75,25 @@ class UserTest extends TestCase
         $team = factory(Models\Team::class)->create();
         $user = factory(Fixtures\User::class)->create();
         $user->addRole('TEAM_ADMIN', $team);
+    }
+
+    public function testCreateUserCommand()
+    {
+        $params = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'password' => $this->faker->password,
+        ];
+
+        $result = $this->artisan('teams:create-user', $params)->run();
+
+        $this->assertEquals(0, $result);
+
+        $user = Fixtures\User::query()
+            ->where('name', $params['name'])
+            ->where('email', $params['email'])
+            ->firstOrFail();
+
+        $this->assertTrue(Hash::check($params['password'], $user->password));
     }
 }

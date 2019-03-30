@@ -2,7 +2,9 @@
 
 namespace Datashaman\Teams\Commands;
 
+use Hash;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 
 class CreateUserCommand extends Command
 {
@@ -18,9 +20,13 @@ class CreateUserCommand extends Command
 
     public function handle()
     {
-        $attrs = $this->argument();
         $class = config('teams.user');
-        $user = $class::create($attrs);
+
+        $user = new $class();
+        $user->name = $this->argument('name');
+        $user->email = $this->argument('email');
+        $user->password = Hash::make($this->argument('password'));
+        $user->save();
 
         $roles = collect(explode(',', $this->option('roles')))
             ->each(

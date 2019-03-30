@@ -4,9 +4,12 @@ namespace Datashaman\Teams\Tests;
 
 use Datashaman\Teams\TeamsServiceProvider;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use WithFaker;
+
     public function setUp(): void
     {
         parent::setUp();
