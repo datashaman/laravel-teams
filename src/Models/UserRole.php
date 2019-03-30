@@ -16,7 +16,7 @@ class UserRole extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(config('teams.user'));
     }
 
     public function team()

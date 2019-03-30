@@ -5,4 +5,6 @@ return [
         'ADMIN',
         'TEAM_ADMIN',
     ],
+
+    'user' => App\User::class,
 ];

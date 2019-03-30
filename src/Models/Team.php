@@ -26,7 +26,7 @@ class Team extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(config('teams.user'));
     }
 
     public function projects()
@@ -40,11 +40,11 @@ class Team extends Model
     }
 
     /**
-     * @param User $user
+     * @param Model $user
      *
-     * @return User
+     * @return Model
      */
-    public function addUser(User $user): User
+    public function addUser(Model $user): Model
     {
         $exists = $this
             ->users()
@@ -59,11 +59,11 @@ class Team extends Model
     }
 
     /**
-     * @param User $user
+     * @param Model $user
      *
-     * @return User
+     * @return Model
      */
-    public function removeUser(User $user): User
+    public function removeUser(Model $user): Model
     {
         $exists = $this
             ->users()

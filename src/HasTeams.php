@@ -41,7 +41,11 @@ trait HasTeams
      */
     public function addRole(string $role, Models\Team $team = null)
     {
-        if (in_array($role, config('team.roles'))) {
+        if (in_array($role, config('teams.roles'))) {
+            if ($role === 'TEAM_ADMIN' && !$team) {
+                throw new TeamsException('You must specify the team');
+            }
+
             $teamId = is_null($team) ? null : $team->id;
 
             $this->userRoles()->updateOrCreate(['role' => $role, 'team_id' => $teamId]);
@@ -54,7 +58,7 @@ trait HasTeams
      */
     public function removeRole(string $role, Models\Team $team = null)
     {
-        if (in_array($role, config('team.roles'))) {
+        if (in_array($role, config('teams.roles'))) {
             $teamId = is_null($team) ? null : $team->id;
 
             $this->userRoles()
