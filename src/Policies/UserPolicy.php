@@ -80,28 +80,4 @@ class UserPolicy extends AbstractPolicy
     {
         return $this->userIsTeamAdminInSameTeam($actingUser, $user);
     }
-
-    /**
-     * Determine whether the user can add a role to the user.
-     *
-     * @param TeamsUserInterface $actingUser
-     * @param TeamsUserInterface $user
-     * @return mixed
-     */
-    public function addRole(TeamsUserInterface $actingUser)
-    {
-        return $actingUser->hasRole('ADMIN');
-    }
-
-    /**
-     * Determine whether the user can remove a role from the user.
-     *
-     * @param TeamsUserInterface $actingUser
-     * @param TeamsUserInterface $user
-     * @return mixed
-     */
-    public function removeRole(TeamsUserInterface $actingUser)
-    {
-        return $actingUser->hasRole('ADMIN');
-    }
 }

@@ -7,7 +7,7 @@ Includes models and policies.
 - Teams
 - Teams have projects
 - Teams have users
-- User have roles, optionally in a team
+- Users have roles, optionally in a team
 
 Roles include:
 

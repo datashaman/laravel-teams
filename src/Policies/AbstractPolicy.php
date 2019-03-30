@@ -34,5 +34,4 @@ abstract class AbstractPolicy
             ->where('teams.id', $team->id)
             ->exists();
     }
-
 }
