@@ -2,6 +2,10 @@
 
 namespace Datashaman\Teams;
 
+use Datashaman\Teams\Models\Project;
+use Datashaman\Teams\Models\Team;
+use Datashaman\Teams\Contracts\ProjectInterface;
+use Datashaman\Teams\Contracts\TeamInterface;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
 
 class TeamsServiceProvider extends AuthServiceProvider
@@ -43,7 +47,7 @@ class TeamsServiceProvider extends AuthServiceProvider
             __DIR__.'/../config/teams.php', 'teams'
         );
 
-        $this->app->bind(Contracts\TeamInterface::class, Models\Team::class);
-        $this->app->bind(Contracts\ProjectInterface::class, Models\Project::class);
+        $this->app->bind(TeamInterface::class, Team::class);
+        $this->app->bind(ProjectInterface::class, Project::class);
     }
 }
