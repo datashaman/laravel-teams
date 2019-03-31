@@ -42,5 +42,8 @@ class TeamsServiceProvider extends AuthServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/teams.php', 'teams'
         );
+
+        $this->app->bind(Contracts\TeamInterface::class, Models\Team::class);
+        $this->app->bind(Contracts\ProjectInterface::class, Models\Project::class);
     }
 }

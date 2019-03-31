@@ -2,6 +2,7 @@
 
 namespace Datashaman\Teams;
 
+use Datashaman\Teams\Contracts\TeamInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -19,40 +20,40 @@ interface TeamsUserInterface
 
     /**
      * @return string|array     $role
-     * @return Models\Team|null $team
+     * @return TeamInterface|null $team
      *
      * @return bool
      */
-    public function hasRole($role, Models\Team $team = null): bool;
+    public function hasRole($role, TeamInterface $team = null): bool;
 
     /**
      * @param string           $role
-     * @param Models\Team|null $team
+     * @param TeamInterface|null $team
      */
-    public function addRole(string $role, Models\Team $team = null);
+    public function addRole(string $role, TeamInterface $team = null);
 
     /**
      * @param string           $role
-     * @param Models\Team|null $team
+     * @param TeamInterface|null $team
      */
-    public function removeRole(string $role, Models\Team $team = null);
+    public function removeRole(string $role, TeamInterface $team = null);
 
     /**
-     * @param Models\Team $user
+     * @param TeamInterface $user
      *
-     * @return Models\Team
+     * @return TeamInterface
      */
-    public function joinTeam(Models\Team $team): Models\Team;
+    public function joinTeam(TeamInterface $team): TeamInterface;
 
     /**
      * @return bool
      */
-    public function inTeam(Models\Team $team): bool;
+    public function inTeam(TeamInterface $team): bool;
 
     /**
-     * @param Models\Team $team
+     * @param TeamInterface $team
      *
-     * @return Models\Team
+     * @return TeamInterface
      */
-    public function leaveTeam(Models\Team $team): Models\Team;
+    public function leaveTeam(TeamInterface $team): TeamInterface;
 }

@@ -2,7 +2,6 @@
 
 namespace Datashaman\Teams\Models;
 
-use Datashaman\Teams\Contracts\ProjectInterface;
 use Datashaman\Teams\Contracts\TeamInterface;
 use Datashaman\Teams\TeamsUserInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +31,7 @@ class Team extends Model implements TeamInterface
 
     public function projects()
     {
-        return $this->hasMany(ProjectInterface::class);
+        return $this->hasMany(Project::class);
     }
 
     public function userRoles()

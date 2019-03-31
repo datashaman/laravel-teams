@@ -2,8 +2,7 @@
 
 namespace Datashaman\Teams\Policies;
 
-use Datashaman\Teams\Models\Project;
-use Datashaman\Teams\Models\Team;
+use Datashaman\Teams\Contracts\ProjectInterface;
 use Datashaman\Teams\TeamsUserInterface;
 
 class ProjectPolicy extends AbstractPolicy
@@ -24,11 +23,11 @@ class ProjectPolicy extends AbstractPolicy
      * Determine whether the user can view the project.
      *
      * @param TeamsUserInterface $user
-     * @param Project           $project
+     * @param ProjectInterface           $project
      *
      * @return mixed
      */
-    public function view(TeamsUserInterface $user, Project $project)
+    public function view(TeamsUserInterface $user, ProjectInterface $project)
     {
         return $this->userIsInTeam($user, $project->team);
     }
@@ -50,10 +49,10 @@ class ProjectPolicy extends AbstractPolicy
      * Determine whether the user can update the project.
      *
      * @param  TeamsUserInterface  $user
-     * @param  Project  $project
+     * @param  ProjectInterface  $project
      * @return mixed
      */
-    public function update(TeamsUserInterface $user, Project $project)
+    public function update(TeamsUserInterface $user, ProjectInterface $project)
     {
         return $this->userIsInTeam($user, $project->team)
             && $user->hasRole('TEAM_ADMIN', $project->team);
@@ -63,10 +62,10 @@ class ProjectPolicy extends AbstractPolicy
      * Determine whether the user can delete the project.
      *
      * @param  TeamsUserInterface  $user
-     * @param  Project  $project
+     * @param  ProjectInterface  $project
      * @return mixed
      */
-    public function delete(TeamsUserInterface $user, Project $project)
+    public function delete(TeamsUserInterface $user, ProjectInterface $project)
     {
         return $this->userIsInTeam($user, $project->team)
             && $user->hasRole('TEAM_ADMIN', $project->team);

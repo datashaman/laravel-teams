@@ -3,7 +3,6 @@
 namespace Datashaman\Teams\Models;
 
 use Datashaman\Teams\Contracts\ProjectInterface;
-use Datashaman\Teams\Contracts\TeamInterface;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +19,7 @@ class Project extends Model implements ProjectInterface
 
     public function team()
     {
-        return $this->belongsTo(TeamInterface::class);
+        return $this->belongsTo(Team::class);
     }
 
     /**

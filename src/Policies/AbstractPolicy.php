@@ -2,7 +2,7 @@
 
 namespace Datashaman\Teams\Policies;
 
-use Datashaman\Teams\Models\Team;
+use Datashaman\Teams\Contracts\TeamInterface;
 use Datashaman\Teams\TeamsUserInterface;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -23,11 +23,11 @@ abstract class AbstractPolicy
 
     /**
      * @param TeamsUserInterface $actingUser
-     * @param Team $team
+     * @param TeamInterface $team
      *
      * @return bool
      */
-    protected function userIsInTeam(TeamsUserInterface $user, Team $team): bool
+    protected function userIsInTeam(TeamsUserInterface $user, TeamInterface $team): bool
     {
         return $user
             ->teams()

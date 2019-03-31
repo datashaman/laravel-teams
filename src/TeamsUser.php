@@ -2,6 +2,9 @@
 
 namespace Datashaman\Teams;
 
+use Datashaman\Teams\Contracts\TeamInterface;
+use Datashaman\Teams\Models\Team;
+use Datashaman\Teams\Models\UserRole;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -9,21 +12,21 @@ trait TeamsUser
 {
     public function teams(): BelongsToMany
     {
-        return $this->belongsToMany(Models\Team::class);
+        return $this->belongsToMany(Team::class);
     }
 
     public function userRoles(): HasMany
     {
-        return $this->hasMany(Models\UserRole::class);
+        return $this->hasMany(UserRole::class);
     }
 
     /**
      * @return string|array     $role
-     * @return Models\Team|null $team
+     * @return TeamInterface|null $team
      *
      * @return bool
      */
-    public function hasRole($roles, Models\Team $team = null): bool
+    public function hasRole($roles, TeamInterface $team = null): bool
     {
         if (is_string($roles)) {
             $roles = [$roles];
@@ -40,9 +43,9 @@ trait TeamsUser
 
     /**
      * @param string           $role
-     * @param Models\Team|null $team
+     * @param TeamInterface|null $team
      */
-    public function addRole(string $role, Models\Team $team = null)
+    public function addRole(string $role, TeamInterface $team = null)
     {
         if (in_array($role, config('teams.roles'))) {
             if ($role === 'TEAM_ADMIN' && !$team) {
@@ -61,9 +64,9 @@ trait TeamsUser
 
     /**
      * @param string           $role
-     * @param Models\Team|null $team
+     * @param TeamInterface|null $team
      */
-    public function removeRole(string $role, Models\Team $team = null)
+    public function removeRole(string $role, TeamInterface $team = null)
     {
         if (in_array($role, config('teams.roles'))) {
             $teamId = is_null($team) ? null : $team->id;
@@ -76,11 +79,11 @@ trait TeamsUser
     }
 
     /**
-     * @param Models\Team $user
+     * @param TeamInterface $user
      *
-     * @return Models\Team
+     * @return TeamInterface
      */
-    public function joinTeam(Models\Team $team): Models\Team
+    public function joinTeam(TeamInterface $team): TeamInterface
     {
         $this->teams()->attach($team);
 
@@ -90,7 +93,7 @@ trait TeamsUser
     /**
      * @return bool
      */
-    public function inTeam(Models\Team $team): bool
+    public function inTeam(TeamInterface $team): bool
     {
         return $this
             ->teams()
@@ -99,11 +102,11 @@ trait TeamsUser
     }
 
     /**
-     * @param Models\Team $team
+     * @param TeamInterface $team
      *
-     * @return Models\Team
+     * @return TeamInterface
      */
-    public function leaveTeam(Models\Team $team): Models\Team
+    public function leaveTeam(TeamInterface $team): TeamInterface
     {
         $exists = $this
             ->teams()
