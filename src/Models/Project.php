@@ -2,10 +2,12 @@
 
 namespace Datashaman\Teams\Models;
 
+use Datashaman\Teams\Contracts\ProjectInterface;
+use Datashaman\Teams\Contracts\TeamInterface;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Project extends Model implements ProjectInterface
 {
     /**
      * @var array
@@ -18,7 +20,7 @@ class Project extends Model
 
     public function team()
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(TeamInterface::class);
     }
 
     /**

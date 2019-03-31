@@ -2,6 +2,7 @@
 
 namespace Datashaman\Teams\Models;
 
+use Datashaman\Teams\Contracts\TeamInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class UserRole extends Model
@@ -21,6 +22,6 @@ class UserRole extends Model
 
     public function team()
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(TeamInterface::class);
     }
 }
