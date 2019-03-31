@@ -8,21 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     /**
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * @var string
-     */
-    protected $keyType = 'string';
-
-    /**
      * @var array
      */
     protected $fillable = [
-        'id',
         'name',
+        'slug',
     ];
 
     public function users()
@@ -92,5 +82,15 @@ class Team extends Model
     public function getUserCountAttribute()
     {
         return $this->users()->count();
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
