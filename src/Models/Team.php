@@ -10,6 +10,14 @@ class Team extends Model
     /**
      * @var array
      */
+    protected $appends = [
+        'projectCount',
+        'userCount',
+    ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name',
         'slug',
@@ -28,6 +36,22 @@ class Team extends Model
     public function userRoles()
     {
         return $this->hasMany(UserRole::class);
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserCountAttribute(): int
+    {
+        return $this->users()->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function getProjectCountAttribute(): int
+    {
+        return $this->projects()->count();
     }
 
     /**
@@ -66,22 +90,6 @@ class Team extends Model
         }
 
         return $user->refresh();
-    }
-
-    /**
-     * @return int
-     */
-    public function getProjectCountAttribute()
-    {
-        return $this->projects()->count();
-    }
-
-    /**
-     * @return int
-     */
-    public function getUserCountAttribute()
-    {
-        return $this->users()->count();
     }
 
     /**
